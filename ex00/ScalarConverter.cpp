@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabou-ha <mabou-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabou-ha <mabou-ha>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 17:16:48 by mabou-ha          #+#    #+#             */
-/*   Updated: 2025/10/25 19:53:20 by mabou-ha         ###   ########.fr       */
+/*   Updated: 2025/11/04 22:46:03 by mabou-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void ScalarConverter::convert(std::string const& s)
 		int i;
 		if (!parseInt(s, i))
 		{
-			printAllImpossible(); return;
+			printAllImpossible();
+			return;
 		}
 		double d = static_cast<double>(i);
 		printAllFromDouble(d);
@@ -43,7 +44,8 @@ void ScalarConverter::convert(std::string const& s)
 	{
 		if (isFloatPseudo(s))
 		{
-			handleFloatPseudo(s); return;
+			handleFloatPseudo(s);
+			return;
 		}
 		std::string core = s.substr(0, s.size() - 1);
 		double dcore;

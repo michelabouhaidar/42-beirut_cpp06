@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   print.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabou-ha <mabou-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabou-ha <mabou-ha>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:28:21 by mabou-ha          #+#    #+#             */
-/*   Updated: 2025/10/25 19:54:59 by mabou-ha         ###   ########.fr       */
+/*   Updated: 2025/11/04 21:52:43 by mabou-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include <sstream>
 #include <iostream>
+
+static void print_fixed1_to_cout(double v)
+{
+	std::ostringstream oss;
+	oss.setf(std::ios::fixed, std::ios::floatfield);
+	oss << std::setprecision(1) << v;
+	std::cout << oss.str() << "\n";
+}
 
 bool isPrintableChar(int v)
 {
@@ -70,13 +79,7 @@ void printFloatFromDouble(double v)
 		std::cout << "-inff\n";
 		return;
 	}
-
-	std::streamsize oldprec = std::cout.precision();
-	std::ios::fmtflags oldflags = std::cout.flags();
-	std::cout.setf(std::ios::fixed, std::ios::floatfield);
-	std::cout << std::setprecision(1) << f << "f\n";
-	std::cout.precision(oldprec);
-	std::cout.flags(oldflags);
+	print_fixed1_to_cout(v);
 }
 
 void printDouble(double v)
@@ -97,13 +100,7 @@ void printDouble(double v)
 		std::cout << "-inf\n";
 		return;
 	}
-
-	std::streamsize oldprec = std::cout.precision();
-	std::ios::fmtflags oldflags = std::cout.flags();
-	std::cout.setf(std::ios::fixed, std::ios::floatfield);
-	std::cout << std::setprecision(1) << v << "\n";
-	std::cout.precision(oldprec);
-	std::cout.flags(oldflags);
+	print_fixed1_to_cout(v);
 }
 
 void printAllFromDouble(double v)
@@ -136,6 +133,11 @@ void handleFloatPseudo(const std::string& s)
 		std::cout << "float: +inff\n";
 		std::cout << "double: +inf\n";
 	}
+	else if (s == "inff")
+	{
+		std::cout << "float: +inff\n";
+		std::cout << "double: +inf\n";
+	}
 	else
 	{
 		std::cout << "float: -inff\n";
@@ -153,6 +155,11 @@ void handleDoublePseudo(const std::string& s)
 		std::cout << "double: nan\n";
 	}
 	else if (s == "+inf")
+	{
+		std::cout << "float: +inff\n";
+		std::cout << "double: +inf\n";
+	}
+	else if (s == "inf")
 	{
 		std::cout << "float: +inff\n";
 		std::cout << "double: +inf\n";

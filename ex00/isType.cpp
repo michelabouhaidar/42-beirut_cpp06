@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   isType.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabou-ha <mabou-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabou-ha <mabou-ha>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 17:32:54 by mabou-ha          #+#    #+#             */
-/*   Updated: 2025/10/25 20:05:54 by mabou-ha         ###   ########.fr       */
+/*   Updated: 2025/11/04 22:18:22 by mabou-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include <cctype>
 
 bool isCharLiteral(std::string const& s)
 {
@@ -34,18 +35,20 @@ bool isIntLiteral(std::string const& s)
 
 bool isFloatPseudo(std::string const& s)
 {
-	return s == "nanf" || s == "+inff" || s == "-inff";
+	return s == "nanf" || s == "+inff" || s == "-inff" || s == "inff";
 }
 
 bool isDoublePseudo(std::string const& s)
 {
-	return s == "nan" || s == "+inf" || s == "-inf";
+	return s == "nan" || s == "+inf" || s == "-inf" || s == "inf";
 }
 
 bool isFloatLiteral(std::string const& s)
 {
 	if (isFloatPseudo(s))
 		return true;
+	if (s.empty())
+		return false;
 	if (s.size() < 2 || s[s.size() - 1] != 'f')
 		return false;
 	std::string core = s.substr(0, s.size() - 1);
@@ -72,9 +75,13 @@ bool isDoubleLiteral(std::string const& s)
 {
 	if (isDoublePseudo(s))
 		return true;
+	if (s.empty())
+		return false;
 	size_t i = 0, dots = 0, digits = 0;
 	if (s[i] == '+' || s[i] == '-')
 		i++;
+	if (i == s.size())
+		return false;
 	for (; i < s.size(); i++)
 	{
 		if (s[i] == '.')
